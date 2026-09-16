@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Networking (Retrofit) — restful, tutorial05, exam weather -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Location — tutorial05, tutorial10, exam weather-at-location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Camera — tutorial10 (CameraX + ML Kit scan) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Notifications (Android 13+) — tutorial08, tutorial09, exam WorkManager reminder -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Foreground service — tutorial09 media player, UC-02 GPS -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Boot receiver — tutorial08 SystemEventReceiver -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="false" />
+
+    <application
+        android:name=".lecture06.MyApp"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Sampletest">
+
+        <!-- Launcher: lecture06 (Hilt + Room + DataStore demo). Swap .name to revise another lesson. -->
+        <activity
+            android:name=".lecture06.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Sampletest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Other lesson entry points — not launchers; set as launcher above to run one. -->
+        <activity android:name=".tutorial03.MainActivity" android:exported="false" />
+        <activity android:name=".tutorial05.MainActivity" android:exported="false" />
+        <activity android:name=".tutorial08.presentation.MainActivity" android:exported="false" />
+        <activity android:name=".tutorial09.MainActivity" android:exported="false" />
+        <activity android:name=".tutorial10.MainActivity" android:exported="false" />
+
+        <!-- tutorial09 foreground media service -->
+        <service
+            android:name=".tutorial09.MusicPlayerService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+    </application>
+
+</manifest>
