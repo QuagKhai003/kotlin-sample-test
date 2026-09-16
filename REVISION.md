@@ -48,8 +48,11 @@ Build **"Personal Notes with Weather Tag"** by combining:
 2. **Room + DataStore (15)** — copy `lecture06` `Task`→`Note` entity (`id, title, content, timestamp,
    weatherTag`), `TaskDao`, `AppDatabase`, and `PreferencesManager` for the dark-mode flag.
 3. **Networking (15)** — copy `restful` Retrofit setup (`ApiClient`, `StudentApi`→`WeatherApi`, DTO +
-   `toDomain`, repository returning `Result`/Flow). Point it at OpenWeatherMap. `tutorial05` shows
-   using device location to build the request.
+   `toDomain`, repository returning `Result`/Flow). Point it at OpenWeatherMap.
+   **Current location** for the weather query comes from `FusedLocationProviderClient` — copy
+   `tutorial05/data/location/DefaultLocationTracker.kt` (clean injectable tracker) and gate the
+   permission with `tutorial05/.../components/RequestLocationPermission.kt`. This is `play-services-location`:
+   on-device GPS, **no API key, no external service** — feed its `lat/lon` into the Retrofit weather call.
 4. **Background + Notifications (10)** — copy `tutorial08` `SummaryWorker` + `Notify`; schedule a periodic
    check, notify if no note in 24h.
 5. **Architecture (10)** — wire it with Hilt like `lecture06`/`lecture11`: `@HiltAndroidApp` app,
@@ -71,5 +74,8 @@ Build **"Personal Notes with Weather Tag"** by combining:
   and a `com.google.android.geo.API_KEY` meta-data tag in the manifest. Without it: blank map, app still runs.
   This is the only lesson touching an external, keyed API — everything else is on-device or plain REST.
 - **ML Kit** (`tutorial10`): on-device bundled models, **no key, no external API** — kept.
-- **Location** (`play-services-location`): on-device GPS, no key — kept.
+- **Location / FusedLocationProviderClient** (`play-services-location`): on-device GPS, **no key,
+  no external API** — kept. Ships from Google Play Services but is a device sensor API, not a keyed
+  web service. Reference: `tutorial05/data/location/DefaultLocationTracker.kt` (get current location);
+  also used raw in `tutorial10`. This is what supplies `lat/lon` for the exam's weather-at-location.
 - **Retrofit**: plain REST client; the exam's OpenWeatherMap call needs a free API key at runtime only.
