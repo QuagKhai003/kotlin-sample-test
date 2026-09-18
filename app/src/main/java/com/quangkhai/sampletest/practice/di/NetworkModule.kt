@@ -14,9 +14,15 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import com.quangkhai.sampletest.practice.data.remote.WeatherApi
+import com.quangkhai.sampletest.practice.data.remote.OpenWeatherMapClient
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
+    @Provides
+    @Singleton
+    fun provideOpenWeatherMap(): WeatherApi {
+        return OpenWeatherMapClient.weatherApi
+    }
 }

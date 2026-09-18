@@ -13,5 +13,32 @@ package com.quangkhai.sampletest.practice.work
 // ============================================================================
 
 // import hints:
+import android.Manifest
+import android.content.Context
+import androidx.annotation.RequiresPermission
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.quangkhai.sampletest.practice.data.local.AppDatabase
+
+
+class ReminderWorker (
+    ctx: Context, params: WorkerParameters
+): CoroutineWorker(ctx, params) {
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    override suspend fun doWork(): Result {
+        val dao = AppDatabase.getDatabase(applicationContext).noteDao()
+        val latestNoteTimeStamp = dao.getLatestNoteTimeStamp() ?: 0L
+        val dayMillis = 24L * 60 * 60 * 1000
+
+        if (System.currentTimeMillis() - latestNoteTimeStamp >= dayMillis) {
+            Notify.ensureChannel(applicationContext)
+            Notify.show(
+                applicationContext,
+                "Haven't written a note in 24 hours?",
+                "Add one now!",
+            )
+        }
+        return Result.success()
+    }
+
+}

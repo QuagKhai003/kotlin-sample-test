@@ -41,4 +41,26 @@ class NoteRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun addNote(note: NoteEntity): Result<Unit> {
+        return try {
+            noteDao.insertNote(note)
+            Result.success(Unit)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun deleteNote(noteId: String): Result<Unit> {
+        return try {
+            noteDao.deleteByOrderId(noteId)
+            Result.success(Unit)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }

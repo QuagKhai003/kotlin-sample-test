@@ -1,7 +1,6 @@
 package com.quangkhai.sampletest.practice.domain.usecase
 
 import com.quangkhai.sampletest.practice.data.local.NoteEntity
-import com.quangkhai.sampletest.practice.data.repository.NoteRepositoryImpl
 import com.quangkhai.sampletest.practice.domain.repository.NoteRepository
 import javax.inject.Inject
 

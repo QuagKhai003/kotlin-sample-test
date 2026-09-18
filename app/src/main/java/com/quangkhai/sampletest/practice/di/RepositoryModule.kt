@@ -10,17 +10,25 @@ package com.quangkhai.sampletest.practice.di
 // ============================================================================
 
 // import hints:
+import com.quangkhai.sampletest.practice.data.repository.NoteRepositoryImpl
+import com.quangkhai.sampletest.practice.data.repository.WeatherRepositoryImpl
 import com.quangkhai.sampletest.practice.domain.repository.NoteRepository
+import com.quangkhai.sampletest.practice.domain.repository.WeatherRepository
 import dagger.Module
+import dagger.Binds
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+abstract class RepositoryModule {
 
-    @Bind
+    @Binds
     @Singleton
-    fun bindNoteRepository(impl: NoteRepositoryImpl): NoteRepository
+    abstract fun bindNoteRepository(mpl: NoteRepositoryImpl): NoteRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindWeatherRepository(mpl: WeatherRepositoryImpl): WeatherRepository
 }

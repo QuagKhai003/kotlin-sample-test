@@ -12,12 +12,13 @@ package com.quangkhai.sampletest.practice.domain.repository
 
 // import hints:
 import com.quangkhai.sampletest.practice.data.local.NoteEntity
-import dagger.Module
-import dagger.hilt.InstallIn
-import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
     suspend fun getNoteById(noteId: String): Result<NoteEntity>
 
     suspend fun getAllNotes(): Result<List<NoteEntity>>
+
+    suspend fun addNote(note: NoteEntity): Result<Unit>
+
+    suspend fun deleteNote(noteId: String): Result<Unit>
 }
